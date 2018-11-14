@@ -44,12 +44,34 @@ class RefundOrderRequest extends BaseAbstractRequest
             'op_user_id'      => $this->getOpUserId() ?: $this->getMchId(),
             'nonce_str'       => md5(uniqid()),
         ];
-
+		//设置回调地址
+		if(!empty($this->getNotifyUrl())){
+            $data["notify_url"]=$this->getNotifyUrl();
+        }
         $data = array_filter($data);
 
         $data['sign'] = Helper::sign($data, $this->getApiKey());
 
         return $data;
+    }
+
+	/**
+     * 获取退款结果通知url
+     * @return mixed
+     */
+    public function getNotifyUrl()
+    {
+        return $this->getParameter('notify_url');
+    }
+    
+    
+    /**
+     * 设置退款结果通知url
+     * @param mixed $outTradeNo
+     */
+    public function setNotifyUrl($outTradeNo)
+    {
+        $this->setParameter('notify_url', $outTradeNo);
     }
 
 
