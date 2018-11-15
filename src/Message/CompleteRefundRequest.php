@@ -17,14 +17,14 @@ class CompleteRefundRequest extends BaseAbstractRequest
         $this->setParameter('request_params', $requestParams);
     }
 
-    public function sendData($data)
+     public function sendData($data)
     {
+		 
         $data = $this->getData();
-        $sign = Helper::sign($data, $this->getApiKey());
 
         $responseData = array();
-
-        if (isset($data['sign']) && $data['sign'] && $sign === $data['sign']) {
+		//只要解密成功，认为没问题
+        if (isset($data['refund_id']) && $data['refund_id']) {
             $responseData['sign_match'] = true;
         } else {
             $responseData['sign_match'] = false;
@@ -36,7 +36,7 @@ class CompleteRefundRequest extends BaseAbstractRequest
             $responseData['refunded'] = false;
         }
 
-        return $this->response = new CompleteRefundResponse($this, $responseData);
+        return $this->response = new CompleteRefundResponse($this, array_merge($responseData,$data));
     }
 
     public function getData()
