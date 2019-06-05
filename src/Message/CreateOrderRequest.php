@@ -47,6 +47,7 @@ class CreateOrderRequest extends BaseAbstractRequest
             'mch_id'           => $this->getMchId(),
             'sub_appid'        => $this->getSubAppId(),
             'sub_mch_id'       => $this->getSubMchId(),
+            'profit_sharing'   => $this->getProfitSharing(),//是否需要分账
             'device_info'      => $this->getDeviceInfo(),//*
             'body'             => $this->getBody(),//*
             'detail'           => $this->getDetail(),
@@ -64,6 +65,7 @@ class CreateOrderRequest extends BaseAbstractRequest
             'openid'           => $this->getOpenId(),//*(trade_type=JSAPI)
             'nonce_str'        => md5(uniqid()),//*
         );
+        
 
         $data = array_filter($data);
 
@@ -71,7 +73,20 @@ class CreateOrderRequest extends BaseAbstractRequest
 
         return $data;
     }
-
+    /**
+     * 设置是否需要分账
+     * @param string $isProfitSharing
+     */
+    public function setProfitSharing($profitSharing){
+        return $this->setParameter("profit_sharing", $profitSharing);
+    }
+    /**
+     * 是否指定服务商分账
+     * @return string
+     */
+    public function getProfitSharing(){
+        return $this->getParameter("profit_sharing");
+    }
 
     /**
      * @return mixed

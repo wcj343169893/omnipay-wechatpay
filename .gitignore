@@ -6,3 +6,6 @@ composer.phar
 phpunit.xml
 .php_cs
 
+/.buildpath
+/.project
+/.settings

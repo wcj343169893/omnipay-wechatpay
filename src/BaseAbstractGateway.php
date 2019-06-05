@@ -6,6 +6,26 @@ use Omnipay\Common\AbstractGateway;
 
 abstract class BaseAbstractGateway extends AbstractGateway
 {
+    /**
+     * 设置是否需要分账
+     * @param boolean $isProfitSharing
+     */
+    public function setProfitSharing($isProfitSharing){
+        if($isProfitSharing){
+            //Y-是，需要分账
+            return $this->setParameter("profit_sharing", "Y");
+        }else{
+            //N-否，不分账,默认值
+            return $this->setParameter("profit_sharing", "N");
+        }
+    }
+    /**
+     * 是否指定服务商分账
+     * @return string
+     */
+    public function getProfitSharing(){
+        return $this->getParameter("profit_sharing");
+    }
     public function setTradeType($tradeType)
     {
         $this->setParameter('trade_type', $tradeType);
