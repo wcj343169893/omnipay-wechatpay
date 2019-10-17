@@ -283,12 +283,21 @@ abstract class BaseAbstractGateway extends AbstractGateway
      * @param array $parameters
      * @return \Omnipay\Common\Message\AbstractRequest
      */
-    public function profitSharing($parameters = array())
+    public function profitSharing($parameters = array(),$multi=false)
     {
-        if(!empty($parameters["multi"])){
+        if($multi){
             //多次分账
             return $this->createRequest('\Omnipay\WechatPay\Message\ProfitSharingMultiRequest', $parameters);
         }
         return $this->createRequest('\Omnipay\WechatPay\Message\ProfitSharingRequest', $parameters);
+    }
+    /**
+     * 完结分账
+     * @param array $parameters
+     * @return \Omnipay\Common\Message\AbstractRequest
+     */
+    public function profitSharingFinish($parameters = array())
+    {
+        return $this->createRequest('\Omnipay\WechatPay\Message\ProfitSharingFinishRequest', $parameters);
     }
 }
