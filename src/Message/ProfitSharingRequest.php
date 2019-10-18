@@ -25,7 +25,7 @@ class ProfitSharingRequest extends CreateOrderRequest
      */
     public function getData()
     {
-        $this->validate('app_id', 'mch_id', 'out_order_no', 'transaction_id', 'cert_path', 'key_path');
+        $this->validate('app_id', 'mch_id', 'out_order_no', 'transactionId', 'cert_path', 'key_path');
 
         $data = array(
             'appid'            => $this->getAppId(),
